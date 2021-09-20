@@ -37,4 +37,27 @@ app.get("/goty", async (req, res) => {
   res.json( juegos );
 });
 
+app.post("/goty/:id", async (req, res) => {
+  const id = req.params.id;
+  const gameRef = db.collection("goty").doc( id );
+  const gameSnap = gameRef.get();
+
+  if ( !(await gameSnap).exists ) {
+    res.status(404).json({
+      ok:false,
+      mensaje: "No existe un juego con el id " + id,
+    })
+  }else{
+    // res.json('Juego existe')
+    const antes = (await gameSnap).data() || { votos: 0 };
+    await gameRef.update({
+      votos: antes.votos + 1,
+    });
+    res.json({
+      ok: true,
+      mensaje: `Tu voto ha sido asignado a ${ antes.name }`,
+    });
+  }
+});
+
 export const api = functions.https.onRequest( app );
