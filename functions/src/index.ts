@@ -3,6 +3,7 @@ import * as admin from "firebase-admin";
 
 import * as express from "express";
 import * as cors from "express";
+
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
 const serviceAccount = require("../src/serviceAccountKey.json");
