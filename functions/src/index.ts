@@ -30,6 +30,12 @@ export const getGOTY = functions.https.onRequest(async (request, response) => {
 // Express
 const app = express();
 app.use(cors());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET , PUT , POST , DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, x-requested-with");
+  next(); // Important
+});
 
 app.get("/goty", async (req, res) => {
   const gotyRef = db.collection("goty");
@@ -45,12 +51,12 @@ app.post("/goty/:id", async (req, res) => {
 
   if ( !(await gameSnap).exists ) {
     res.status(404).json({
-      ok:false,
+      ok: false,
       mensaje: "No existe un juego con el id " + id,
-    })
-  }else{
+    });
+  } else {
     // res.json('Juego existe')
-    const antes = (await gameSnap).data() || { votos: 0 };
+    const antes = (await gameSnap).data() || {votos: 0};
     await gameRef.update({
       votos: antes.votos + 1,
     });

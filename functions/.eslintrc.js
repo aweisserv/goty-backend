@@ -29,6 +29,7 @@ module.exports = {
     "import/no-unresolved": 0,
     "comma-dangle": [2, "always-multiline"],
     "@typescript-eslint/no-var-requires": 0,
-    "linebreak-style": ["error", process.platform === "win32" ? "windows" : "unix"],
+    "linebreak-style":
+    ["error", process.platform === "win32" ? "windows" : "unix"],
   },
 };
