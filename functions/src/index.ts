@@ -56,9 +56,9 @@ app.post("/goty/:id", async (req, res) => {
     });
   } else {
     // res.json('Juego existe')
-    const antes = (await gameSnap).data() || {votos: 0};
+    const antes = (await gameSnap).data() || {votes: 0};
     await gameRef.update({
-      votos: antes.votos + 1,
+      votes: antes.votes + 1,
     });
     res.json({
       ok: true,
